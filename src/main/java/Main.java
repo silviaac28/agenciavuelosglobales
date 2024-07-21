@@ -1,12 +1,24 @@
 
 import java.util.Scanner;
 
+import com.agencia.aeropuerto.aplication.CreateAeropuertoCase;
+import com.agencia.aeropuerto.aplication.DeleteAeropuertoCase;
+import com.agencia.aeropuerto.aplication.FindAeropuertoCase;
+import com.agencia.aeropuerto.aplication.UpdateAeropuertoCase;
+import com.agencia.aeropuerto.infrastructure.in.AeropuertoController;
+import com.agencia.aeropuerto.infrastructure.out.AeropuertoRepository;
 import com.agencia.avion.application.CreateAvionUseCase;
 import com.agencia.avion.application.DeleteAvionUseCase;
 import com.agencia.avion.application.FindAvionUseCase;
 import com.agencia.avion.application.UpdateAvionUseCase;
 import com.agencia.avion.infraestructure.AvionController;
 import com.agencia.avion.infraestructure.AvionRepository;
+import com.agencia.cliente.aplication.CreateClienteCase;
+import com.agencia.cliente.aplication.DeleteClienteCase;
+import com.agencia.cliente.aplication.FindClienteCase;
+import com.agencia.cliente.aplication.UpdateClienteCase;
+import com.agencia.cliente.infrastructure.in.ClienteController;
+import com.agencia.cliente.infrastructure.out.ClienteRepository;
 import com.agencia.escala.application.AsignAvionUseCase;
 import com.agencia.escala.application.DeleteEscalaUseCase;
 import com.agencia.escala.application.FindEscalaUseCase;
@@ -44,6 +56,8 @@ public class Main {
         EscalaRepository escalaRepository = new EscalaRepository();
         RevisionRepository revisionRepository = new RevisionRepository();
         TripulacionRepository tripulacionRepository = new TripulacionRepository();
+        ClienteRepository clienteRepository = new ClienteRepository();
+        AeropuertoRepository aeropuertoRepository = new AeropuertoRepository();
 
         FindAvionUseCase findAvionUseCase = new FindAvionUseCase(avionRepository);
         CreateAvionUseCase createAvionUseCase = new CreateAvionUseCase(avionRepository);
@@ -58,7 +72,6 @@ public class Main {
         CreateRevisionUseCase createRevisionUseCase = new CreateRevisionUseCase(revisionRepository);
         UpdateTrayectoUseCase updateTrayectoUseCase = new UpdateTrayectoUseCase(trayectoRepository);
         DeleteTrayectoUseCase deleteTrayectoUseCase = new DeleteTrayectoUseCase(trayectoRepository);
-
 
         CreateTripulacionUseCase createTripulacionUseCase = new CreateTripulacionUseCase(tripulacionRepository);
         FindTripulacionUseCase findTripulacionUseCase=new FindTripulacionUseCase(tripulacionRepository);
@@ -79,6 +92,19 @@ public class Main {
         DeleteTipoDocumentoUseCase deleteTipoDocumentoUseCase=new DeleteTipoDocumentoUseCase(tipoDocumentoRepository);
         FindTipoDocumentoUseCase findTipoDocumentoUseCase=new FindTipoDocumentoUseCase(tipoDocumentoRepository);
         TipoDocumentoController tipoDocumentoController=new TipoDocumentoController(createTipoDocumentoUseCase, updateTipoDocumentoUseCase,deleteTipoDocumentoUseCase,findTipoDocumentoUseCase);
+       
+        CreateClienteCase createClienteCase = new CreateClienteCase(clienteRepository);
+        FindClienteCase findClienteCase = new FindClienteCase(clienteRepository);
+        UpdateClienteCase updateClienteCase = new UpdateClienteCase(clienteRepository);
+        DeleteClienteCase deleteClienteCase = new DeleteClienteCase(clienteRepository);
+        ClienteController clienteController = new ClienteController(createClienteCase, findClienteCase, deleteClienteCase, updateClienteCase);
+        
+        CreateAeropuertoCase createAeropuertoCase = new CreateAeropuertoCase(aeropuertoRepository);
+        FindAeropuertoCase findAeropuertoCase = new FindAeropuertoCase(aeropuertoRepository);
+        UpdateAeropuertoCase updateAeropuertoCase = new UpdateAeropuertoCase(aeropuertoRepository);
+        DeleteAeropuertoCase deleteAeropuertoCase = new DeleteAeropuertoCase(aeropuertoRepository);
+        AeropuertoController aeropuertoController = new AeropuertoController(createAeropuertoCase, findAeropuertoCase, deleteAeropuertoCase, updateAeropuertoCase);
+
         
         while (true) {
             System.out.println("1. Gestion Avión");
@@ -87,7 +113,9 @@ public class Main {
             System.out.println("4. Gestión tipo documento");
             System.out.println("5. Gestión revisión de mantenimiento de aviones");
             System.out.println("6. Gestion de tripulantes");
-            System.out.println("7. Salir");
+            System.out.println("7. Gestion de clientes");
+            System.out.println("8. Gestion de aeropuertos");
+            System.out.println("9. Salir");
 
             int opcion = scanner.nextInt();
             scanner.nextLine(); // Consumir el salto de línea después de nextInt
@@ -96,39 +124,43 @@ public class Main {
                 case 1:
 
                     avionController.gestionAvion();
-
                     break;
                     
                 case 2: 
                 
                     trayectoController.gestionTrayecto();
-
                     break;
                     
                 case 3: 
                 
                     escalaController.gestionEscala();
-
                     break;
 
                 case 4:
                 
                     tipoDocumentoController.gestionTipoDocumento();
-
                     break;
 
                 case 5:
 
                     revisionController.gestionRevision();
-
                     break;
 
                 case 6:
 
                     tripulacionController.gestionTripulacion();
                     break;
-                    
+
+
                 case 7:
+                    clienteController.gestionCliente();
+                    break;
+
+                case 8:
+                    aeropuertoController.gestionAeropuerto();
+                    break;
+                    
+                case 9:
 
                     System.out.println("Saliendo...");
                     scanner.close();

@@ -9,8 +9,8 @@ public class DeleteAeropuertoCase {
         this.aeropuertoService = aeropuertoService;
     }
 
-    public void execute(String id){
-        aeropuertoService.deleteAeropuerto(id);
+    public void execute(String deleteAeropuerto){
+        aeropuertoService.deleteAeropuerto(deleteAeropuerto);
     }
 
 }

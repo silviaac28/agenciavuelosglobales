@@ -35,84 +35,73 @@ public class TipoDocumentoRepository implements TipoDocumentoService {
     @Override
     public void createTipoDocumento(TipoDocumento tipoDocumento) {
         try {
-            String query="INSERT INTO tiposdocumentos (nombre) VALUES (?)";
-            PreparedStatement ps=connection.prepareStatement(query,
-            PreparedStatement.RETURN_GENERATED_KEYS);
+            String query = "INSERT INTO tiposdocumentos (nombre) VALUES (?)";
+            PreparedStatement ps = connection.prepareStatement(query,
+                    PreparedStatement.RETURN_GENERATED_KEYS);
 
-            ps.setString(1,tipoDocumento.getNombre());
+            ps.setString(1, tipoDocumento.getNombre());
 
             ps.executeUpdate();
             System.out.println("Tipo documento creado con exito!!");
 
-            try (ResultSet generatedkeys=ps.getGeneratedKeys()){
+            try (ResultSet generatedkeys = ps.getGeneratedKeys()) {
                 if (generatedkeys.next()) {
                     int id = generatedkeys.getInt(1);
                     tipoDocumento.setId(id);
                 }
-                
-            }
 
-          
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
-        
 
     @Override
-    public void updateTipoDocumento(TipoDocumento tipoDocumento) { 
-      String query="UPDATE tiposdocumentos SET nombre=? WHERE id=?";
-      try (PreparedStatement ps=connection.prepareStatement(query)){
+    public void updateTipoDocumento(TipoDocumento tipoDocumento) {
+        String query = "UPDATE tiposdocumentos SET nombre=? WHERE id=?";
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
 
-        ps.setString(1, tipoDocumento.getNombre());
-        ps.setInt(2, tipoDocumento.getId());
-        ps.executeUpdate();
-        System.out.println("Tipo documento actualizado con éxito");
-      }
-      catch (Exception e) {
-        e.printStackTrace();
-      }
-    }
-
-     @Override
-    public void deleteTipoDocumento(TipoDocumento tipoDocumento){
-        String query ="DELETE  FROM tiposdocumentos WHERE id=? ";
-        try (PreparedStatement ps=connection.prepareStatement(query)){
-            ps.setInt(1,tipoDocumento.getId());
+            ps.setString(1, tipoDocumento.getNombre());
+            ps.setInt(2, tipoDocumento.getId());
             ps.executeUpdate();
-        }
-        catch(SQLException e){
+            System.out.println("Tipo documento actualizado con éxito");
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-        
+
+    @Override
+    public void deleteTipoDocumento(TipoDocumento tipoDocumento) {
+        String query = "DELETE  FROM tiposdocumentos WHERE id=? ";
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setInt(1, tipoDocumento.getId());
+            ps.executeUpdate();
+            System.out.println("Tipo documento eliminado exitosamente. ");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public TipoDocumento findtipoDocumento(int id) {
-        String query="SELECT id, nombre from tiposdocumentos where id=? ";
-        TipoDocumento tipoDocumento=null;
-        try (PreparedStatement ps=connection.prepareStatement(query)){
+        String query = "SELECT id, nombre from tiposdocumentos where id=? ";
+        TipoDocumento tipoDocumento = null;
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setInt(1, id);
-            try (ResultSet rs =ps.executeQuery()){
-                if(rs.next()){
-                    tipoDocumento=new TipoDocumento();
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    tipoDocumento = new TipoDocumento();
                     tipoDocumento.setId(rs.getInt("id"));
                     tipoDocumento.setNombre(rs.getString("nombre"));
                 }
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return tipoDocumento;
-        
+
     }
-       
+
 }
-
-    
-
-   
-
-
-

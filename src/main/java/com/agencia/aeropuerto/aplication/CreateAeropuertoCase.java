@@ -1,6 +1,5 @@
 package com.agencia.aeropuerto.aplication;
 
-import java.sql.SQLException;
 
 import com.agencia.aeropuerto.domain.entity.Aeropuerto;
 import com.agencia.aeropuerto.domain.service.AeropuertoService;
@@ -12,7 +11,7 @@ public class CreateAeropuertoCase {
         this.aeropuertoService = aeropuertoService;
     }
 
-    public void execute(Aeropuerto aeropuertos) throws SQLException{
+    public void execute(Aeropuerto aeropuertos){
 
         aeropuertoService.createAeropuerto(aeropuertos);
     }

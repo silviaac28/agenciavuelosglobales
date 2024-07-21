@@ -67,8 +67,6 @@ public class TipoDocumentoController {
         TipoDocumento tipoDocumento = new TipoDocumento();
         tipoDocumento.setNombre(nombre);
         createTipoDocumentoUseCase.execute(tipoDocumento);
-
-        System.out.println("creado siuuuuuuuu");
     }
     public void updateTipoDocumento(){
         System.out.println("Ingrese el id del documento a modificar");
@@ -94,6 +92,7 @@ public class TipoDocumentoController {
         deletTipoDocumento.setId(idDeleteTipoDocumento);
 
         deleteTipoDocumentoUseCase.execute(deletTipoDocumento);
+        
     }
 
     public void findIdtipoDocumento(){
