@@ -25,6 +25,13 @@ import com.agencia.escala.application.FindEscalaUseCase;
 import com.agencia.escala.application.UpdateEscalaUseCase;
 import com.agencia.escala.infraestructure.EscalaController;
 import com.agencia.escala.infraestructure.EscalaRepository;
+import com.agencia.reserva.application.CancelReservaClienteUseCase;
+import com.agencia.reserva.application.CreateReservaAgenteUseCase;
+import com.agencia.reserva.application.DeleteReservaAgenteUseCase;
+import com.agencia.reserva.application.FindReservaAgenteUseCase;
+import com.agencia.reserva.application.PagarValorReservaUseCase;
+import com.agencia.reserva.infraestructure.in.ReservaController;
+import com.agencia.reserva.infraestructure.out.ReservaRepository;
 import com.agencia.revision.application.CreateRevisionUseCase;
 import com.agencia.revision.application.DeleteRevisionUseCase;
 import com.agencia.revision.application.FindRevisionUseCase;
@@ -58,6 +65,7 @@ public class Main {
         TripulacionRepository tripulacionRepository = new TripulacionRepository();
         ClienteRepository clienteRepository = new ClienteRepository();
         AeropuertoRepository aeropuertoRepository = new AeropuertoRepository();
+        ReservaRepository reservaRepository=new ReservaRepository();
 
         FindAvionUseCase findAvionUseCase = new FindAvionUseCase(avionRepository);
         CreateAvionUseCase createAvionUseCase = new CreateAvionUseCase(avionRepository);
@@ -105,7 +113,15 @@ public class Main {
         DeleteAeropuertoCase deleteAeropuertoCase = new DeleteAeropuertoCase(aeropuertoRepository);
         AeropuertoController aeropuertoController = new AeropuertoController(createAeropuertoCase, findAeropuertoCase, deleteAeropuertoCase, updateAeropuertoCase);
 
-        
+        CreateReservaAgenteUseCase createReservaAgenteUseCase=new CreateReservaAgenteUseCase(reservaRepository);
+        FindReservaAgenteUseCase findReservaAgenteUseCase=new FindReservaAgenteUseCase(reservaRepository); 
+        DeleteReservaAgenteUseCase deleteReservaAgenteUseCase=new DeleteReservaAgenteUseCase(reservaRepository);   
+        CancelReservaClienteUseCase cancelReservaClienteUseCase=new  CancelReservaClienteUseCase(reservaRepository); 
+        PagarValorReservaUseCase pagarValorReservaUseCase = new PagarValorReservaUseCase(reservaRepository);
+        ReservaController reservaController= new ReservaController(createReservaAgenteUseCase,findReservaAgenteUseCase,
+        deleteReservaAgenteUseCase,cancelReservaClienteUseCase, pagarValorReservaUseCase);
+
+
         while (true) {
             System.out.println("1. Gestion Avión");
             System.out.println("2. Gestion Trayectos");
@@ -115,7 +131,8 @@ public class Main {
             System.out.println("6. Gestion de tripulantes");
             System.out.println("7. Gestion de clientes");
             System.out.println("8. Gestion de aeropuertos");
-            System.out.println("9. Salir");
+            System.out.println("9. Gestion de reservas");
+            System.out.println("10. Salir");
 
             int opcion = scanner.nextInt();
             scanner.nextLine(); // Consumir el salto de línea después de nextInt
@@ -159,8 +176,12 @@ public class Main {
                 case 8:
                     aeropuertoController.gestionAeropuerto();
                     break;
-                    
+
                 case 9:
+                    reservaController.gestionReserva();
+                    break;
+                    
+                case 10:
 
                     System.out.println("Saliendo...");
                     scanner.close();
