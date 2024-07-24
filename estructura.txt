@@ -107,7 +107,7 @@ CREATE TABLE detallesreservaviaje (
 
 CREATE TABLE asientos (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    numeroasiento INT
+    numeroasiento VARCHAR(10)
   
 );
 
