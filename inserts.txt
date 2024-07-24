@@ -711,9 +711,9 @@ VALUES
     (10, 'CV-010', 4, 11, 'CAR1', 'CLO1'),
     (11, 'CV-011', 4, 10, 'CHI1', 'CAR1'),
     (12, 'CV-012', 5, 4, 'LYO1', 'FRA1'),
-    (13, 'CV-013', 6, 'HAM1', 'MIA1'),
-    (14, 'CV-014', 7, 'BOG1', 'MIA1'),
-    (15, 'CV-015', 8, 'NYC1', 'PAR1');
+    (13, 'CV-013', 6, 2, 'HAM1', 'MIA1'),
+    (14, 'CV-014', 7, 1, 'BOG1', 'MIA1'),
+    (15, 'CV-015', 8, 2, 'NYC1', 'PAR1');
 
 
 INSERT INTO tripulantes (idconexion, idempleado)
